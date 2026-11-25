@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>campus-market</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-brand">
+      <h1 class="app-title" id="homeBtn">campus-market</h1>
+      <p class="app-subtitle">대학생 교재 · 자취용품 중고거래</p>
+    </div>
+    <div class="header-search">
+      <input type="search" id="searchInput" class="search-input"
+             placeholder="책 제목, 과목명으로 검색" autocomplete="off" />
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- 화면 1: 상품 목록 -->
+    <section id="listView" class="view">
+      <div class="view-bar">
+        <h2 class="view-title">상품 목록</h2>
+        <button type="button" class="btn btn-primary" id="goToFormBtn">+ 상품 등록</button>
+      </div>
+      <div class="tab-bar" id="tabBar">
+        <button type="button" class="tab active" data-tab="전체">전체</button>
+        <button type="button" class="tab" data-tab="교재">교재</button>
+        <button type="button" class="tab" data-tab="자취용품">자취용품</button>
+        <button type="button" class="tab" data-tab="찜목록">찜 목록</button>
+        <button type="button" class="tab" data-tab="과목별">과목별 교재</button>
+      </div>
+      <div id="productGrid" class="product-grid">
+        <!-- 상품 카드가 여기에 렌더링됩니다 -->
+      </div>
+      <div id="subjectGroups" class="subject-groups" hidden>
+        <!-- 과목별 교재 그룹이 여기에 렌더링됩니다 -->
+      </div>
+      <p id="emptyListMsg" class="empty-msg" hidden>등록된 상품이 없습니다.</p>
+    </section>
+
+    <!-- 화면 2: 상품 등록 -->
+    <section id="formView" class="view" hidden>
+      <div class="view-bar">
+        <h2 class="view-title">상품 등록</h2>
+        <button type="button" class="btn btn-ghost" data-action="back-to-list">← 목록으로</button>
+      </div>
+
+      <p id="formAlert" class="form-alert" hidden></p>
+
+      <form id="productForm" class="product-form" novalidate>
+        <label class="field">
+          <span class="field-label">제목 <em>*</em></span>
+          <input type="text" name="title" id="titleInput" placeholder="예: 경제학원론 8판" maxlength="60" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">가격 (원) <em>*</em></span>
+          <input type="text" name="price" id="priceInput" inputmode="numeric" placeholder="숫자만 입력" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">카테고리</span>
+          <select name="category" id="categoryInput">
+            <option value="교재">교재</option>
+            <option value="자취용품">자취용품</option>
+          </select>
+        </label>
+
+        <!-- 교재 전용 칸: 카테고리가 '교재'일 때만 표시 -->
+        <div id="bookFields">
+          <label class="field">
+            <span class="field-label">과목명</span>
+            <input type="text" name="subject" id="subjectInput" placeholder="예: 경영정보학원론" maxlength="40" />
+          </label>
+
+          <label class="field">
+            <span class="field-label">교수명</span>
+            <input type="text" name="professor" id="professorInput" placeholder="예: 김민수" maxlength="20" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field-label">상품 상태</span>
+          <select name="condition" id="conditionInput">
+            <option value="새것">새것</option>
+            <option value="거의 새것">거의 새것</option>
+            <option value="사용감 있음">사용감 있음</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field-label">사진</span>
+          <input type="file" name="image" id="imageInput" accept="image/*" />
+          <div id="imagePreview" class="image-preview" hidden>
+            <img id="imagePreviewImg" alt="사진 미리보기" />
+          </div>
+        </label>
+
+        <label class="field">
+          <span class="field-label">설명</span>
+          <textarea name="description" id="descriptionInput" rows="4" placeholder="상품에 대한 설명을 적어주세요."></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">등록하기</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 화면 3: 상품 상세 -->
+    <section id="detailView" class="view" hidden>
+      <div class="view-bar">
+        <h2 class="view-title">상품 상세</h2>
+        <button type="button" class="btn btn-ghost" data-action="back-to-list">← 목록으로</button>
+      </div>
+      <div id="detailContent" class="detail-content">
+        <!-- 상세 정보가 여기에 렌더링됩니다 -->
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
